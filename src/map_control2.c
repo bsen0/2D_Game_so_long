@@ -6,7 +6,7 @@
 /*   By: bsen <bsen@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:52:11 by bsen              #+#    #+#             */
-/*   Updated: 2024/05/15 17:06:02 by bsen             ###   ########.fr       */
+/*   Updated: 2024/05/16 14:46:22 by bsen             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	nl_control(char *map)
 			return (1);
 		i++;
 	}
+	if (map[0] == '\n')
+		return (1);
 	return (0);
 }
 int	map_wall_control(char **map, t_data *data)
@@ -87,3 +89,29 @@ int	collect_control(char **map)
 	}
 	return (0);
 }
+
+void collectebles(char **map, t_data *data)
+{
+	int	i;
+	int	j;
+	int	count;
+
+	count = 0;
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'C')
+				count++;
+			j++;
+		}
+		i++;
+	}
+	if (count == 0)
+		exit_err("Error\nThere is no collectebles", data);
+	data->collect = count + 1;
+}
+
+

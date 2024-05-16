@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"ft_printf.h": "c",
+			"unistd.h": "c",
+			"so_long.h": "c"
+		}
+	}
+}

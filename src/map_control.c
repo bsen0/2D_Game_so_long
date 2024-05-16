@@ -6,7 +6,7 @@
 /*   By: bsen <bsen@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:28:54 by bsen              #+#    #+#             */
-/*   Updated: 2024/05/15 17:04:12 by bsen             ###   ########.fr       */
+/*   Updated: 2024/05/16 14:55:45 by bsen             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,15 @@ void map_controls(char *map,char **map2, t_data *data)
 		exit_err("Error\nMap is wrong",data);
 	if (collect_control(map2) == 1)
 		exit_err("Error\nMap is wrong",data);
+	if (chr_count(map,'P') != 1)
+		exit_err("Error\nMap is wrong",data);
+	if (chr_count(map,'E') != 1)
+		exit_err("Error\nMap is wrong",data);
+	P_finding(data, map2);
+	path_finding(map2,data->player_y,data->player_x, data);
+	if (data->collect != 0)
+		exit_err("Error\nMap is wrong",data);
 }
+
+
+
