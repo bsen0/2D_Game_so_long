@@ -6,7 +6,7 @@
 /*   By: bsen <bsen@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 13:53:11 by bsen              #+#    #+#             */
-/*   Updated: 2024/05/16 19:23:46 by bsen             ###   ########.fr       */
+/*   Updated: 2024/05/17 12:56:56 by bsen             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	P_finding(t_data *data, char **map)
 }
 void	path_finding(char **map, int x, int y, t_data *data)
 {
-
 	if (data->map[x][y] == 'E' || data->map[x][y] == 'C')
 		data->collect--;
 	if (data->map[x][y - 1] != '1' && map[x][y - 1] != '1')
@@ -69,10 +68,10 @@ void	path_finding(char **map, int x, int y, t_data *data)
 	{
 		map[x - 1][y] = '1';
 		path_finding(map, x - 1, y, data);
-	}			
+	}
 	if (data->map[x + 1][y] != '1' && map[x + 1][y] != '1')
 	{
-		map[x + 1][y] = '1';	
+		map[x + 1][y] = '1';
 		path_finding(map, x + 1, y, data);
 	}
 }

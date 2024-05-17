@@ -6,7 +6,7 @@
 /*   By: bsen <bsen@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:28:54 by bsen              #+#    #+#             */
-/*   Updated: 2024/05/16 19:19:25 by bsen             ###   ########.fr       */
+/*   Updated: 2024/05/17 14:01:03 by bsen             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include "../libft/libft.h"
 #include <fcntl.h>
+
 void map_name_control(char *map_name)
 {
 	int i;
@@ -58,8 +59,9 @@ char **read_map(t_data *data, int length, char *str)
 	if(fd == -1)
 		exit_err("Error\nRead Error",data);
 	map = malloc(length + 1 * (sizeof(char)));
+	if (!map)
+		exit_err("Error\nMalloc Error",data);
 	i = 1;
-
 	i = read(fd, map, length + 1);
 	if (i == -1)
 		exit_err("Error\nRead Error",data);
@@ -70,30 +72,30 @@ char **read_map(t_data *data, int length, char *str)
 	data->read_map = ft_strdup(map);
 	free(map);
 	close(fd);
-
 	return(vmap);
-
 }
 
-void map_controls(char *map,char **map2, t_data *data)
+void map_controls(char *map, t_data *data)
 {
 	char **vmap;
 	if (nl_control(map) == 1)
 		exit_err("Error\nMap is wrong", data);
-	if (map_wall_control(map2, data) == 1)
+	if (map_wall_control(data->map, data) == 1)
 		exit_err("Error\nMap is wrong",data);
-	if (length_control(data->map_x, map2) == 1)
+	if (length_control(data->map_x, data->map) == 1)
 		exit_err("Error\nMap is wrong",data);
-	if (collect_control(map2) == 1)
+	if (collect_control(data->map) == 1)
 		exit_err("Error\nMap is wrong",data);
 	if (chr_count(map,'P') != 1)
 		exit_err("Error\nMap is wrong",data);
 	if (chr_count(map,'E') != 1)
 		exit_err("Error\nMap is wrong",data);
 	vmap = ft_split(map,'\n');
-	data->map = map2;
-	P_finding(data, map2);
+	if (!vmap)
+		exit_err("Error\nMalloc Error",data);
+	P_finding(data, data->map);
 	path_finding(vmap,data->player_y,data->player_x, data);
+	ft_free(vmap);
 	if (data->collect != 0)
 		exit_err("Error\nMap is wrong",data);
 }

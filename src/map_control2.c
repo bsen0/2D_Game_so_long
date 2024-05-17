@@ -6,7 +6,7 @@
 /*   By: bsen <bsen@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:52:11 by bsen              #+#    #+#             */
-/*   Updated: 2024/05/16 14:46:22 by bsen             ###   ########.fr       */
+/*   Updated: 2024/05/17 13:37:54 by bsen             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	nl_control(char *map)
 	i = 0;
 	while (map[i])
 	{
-		if (map[i] == '\n' && map[i + 1] == '\n')
+		if (map[i] == '\n' && map[i + 1] == '\n' && map[i + 2] != '\0')
 			return (1);
 		i++;
 	}
@@ -47,6 +47,10 @@ int	map_wall_control(char **map, t_data *data)
 			return (1);
 	data->map_x = j;
 	data->map_y = i;
+	i = 0;
+	while (map[i++][j - 1] && i < data->map_y)
+		if (map[i][j - 1] != '1')
+			return (1);
 	return (0);
 }
 int	length_control(int x, char **map)
