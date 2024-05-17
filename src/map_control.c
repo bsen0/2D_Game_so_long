@@ -6,7 +6,7 @@
 /*   By: bsen <bsen@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:28:54 by bsen              #+#    #+#             */
-/*   Updated: 2024/05/16 14:55:45 by bsen             ###   ########.fr       */
+/*   Updated: 2024/05/16 19:19:25 by bsen             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char **read_map(t_data *data, int length, char *str)
 	vmap = ft_split(map,'\n');
 	if (!vmap)
 		exit_err("Error/nMalloc Error",data);
-	map_controls(map,vmap,data);
+	data->read_map = ft_strdup(map);
 	free(map);
 	close(fd);
 
@@ -77,6 +77,7 @@ char **read_map(t_data *data, int length, char *str)
 
 void map_controls(char *map,char **map2, t_data *data)
 {
+	char **vmap;
 	if (nl_control(map) == 1)
 		exit_err("Error\nMap is wrong", data);
 	if (map_wall_control(map2, data) == 1)
@@ -89,8 +90,10 @@ void map_controls(char *map,char **map2, t_data *data)
 		exit_err("Error\nMap is wrong",data);
 	if (chr_count(map,'E') != 1)
 		exit_err("Error\nMap is wrong",data);
+	vmap = ft_split(map,'\n');
+	data->map = map2;
 	P_finding(data, map2);
-	path_finding(map2,data->player_y,data->player_x, data);
+	path_finding(vmap,data->player_y,data->player_x, data);
 	if (data->collect != 0)
 		exit_err("Error\nMap is wrong",data);
 }

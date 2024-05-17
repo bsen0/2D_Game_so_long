@@ -6,7 +6,7 @@
 /*   By: bsen <bsen@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:47:53 by bsen              #+#    #+#             */
-/*   Updated: 2024/05/16 13:51:35 by bsen             ###   ########.fr       */
+/*   Updated: 2024/05/16 19:17:06 by bsen             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static void	start_game(char *map_name, t_data *data)
 	close(fd);
 	data->map = read_map_length(data, map_name);
 	collectebles(data->map, data);
+	map_controls(data->read_map,data->map,data);
+
 }
 int	main(int ac, char **av)
 {

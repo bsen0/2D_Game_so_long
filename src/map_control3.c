@@ -6,7 +6,7 @@
 /*   By: bsen <bsen@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 13:53:11 by bsen              #+#    #+#             */
-/*   Updated: 2024/05/16 15:46:15 by bsen             ###   ########.fr       */
+/*   Updated: 2024/05/16 19:23:46 by bsen             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,29 +42,37 @@ void	P_finding(t_data *data, char **map)
 		{
 			if (map[i][j] == 'P')
 			{
-				data->player_x = i;
-				data->player_y = j;
+				data->player_x = j;
+				data->player_y = i;
 			}
 			j++;
 		}
 		i++;
 	}
 }
-void	path_finding(char **map, int px, int py, t_data *data)
+void	path_finding(char **map, int x, int y, t_data *data)
 {
-	int	x;
-	int	y;
 
-	x = py;
-	y = px;
-	if (map[x][y] == 'E' || map[x][y] == 'C')
+	if (data->map[x][y] == 'E' || data->map[x][y] == 'C')
 		data->collect--;
-	if (map[x][y - 1] != '1')
-		path_finding(map, y, x - 1, data);
-	if (map[x][y + 1] != '1')
-		path_finding(map, y, x + 1, data);
-	if (map[x - 1][y] != '1')
-		path_finding(map, y - 1, x, data);
-	if (map[x + 1][y] != '1')
-		path_finding(map, y + 1, x, data);
+	if (data->map[x][y - 1] != '1' && map[x][y - 1] != '1')
+	{
+		map[x][y - 1] = '1';
+		path_finding(map, x, y - 1, data);
+	}
+	if (data->map[x][y + 1] != '1' && map[x][y + 1] != '1')
+	{
+		map[x][y + 1] = '1';
+		path_finding(map, x, y + 1, data);
+	}
+	if (data->map[x - 1][y] != '1' && map[x - 1][y] != '1')
+	{
+		map[x - 1][y] = '1';
+		path_finding(map, x - 1, y, data);
+	}			
+	if (data->map[x + 1][y] != '1' && map[x + 1][y] != '1')
+	{
+		map[x + 1][y] = '1';	
+		path_finding(map, x + 1, y, data);
+	}
 }
