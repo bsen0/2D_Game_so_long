@@ -6,7 +6,7 @@
 #    By: bsen <bsen@student.42kocaeli.com.tr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/14 15:23:41 by bsen              #+#    #+#              #
-#    Updated: 2024/05/16 14:08:57 by bsen             ###   ########.fr        #
+#    Updated: 2024/05/19 13:35:26 by bsen             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,22 +22,33 @@ SRC =	src/map_control.c \
 		src/utils.c\
 		src/map_control3.c
 
-OBJ = $(SRC:.c=.o)
 LIBFT			=	libft/libft.a
 
+MINILIBX_PATH		=	minilibx
+OBJ				=	$(SRC:.c=.o)
+all:	$(NAME)
 
-
-
-
-all: $(NAME)
-
-$(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o so_long
-
+$(NAME): mlx $(OBJ) $(LIBFT)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) -framework OpenGL -framework AppKit -L$(MINILIBX_PATH) -lmlx
 
 $(LIBFT):
-	make -C libft
+	make -C $(LIBFT_PATH) all
 
-c:
-	rm -rf $(OBJ)
-	rm -rf $(NAME)
+mlx:
+	make -C $(MINILIBX_PATH) all
+
+clean:
+	$(RM) $(OBJ)
+	make -C $(LIBFT_PATH) clean
+	make -C $(MINILIBX_PATH) clean
+
+
+fclean: clean
+	make -C $(LIBFT_PATH) fclean
+	make -C $(MINILIBX_PATH) clean
+	$(RM) $(NAME)
+
+re:					fclean all
+
+.PHONY:	all clean fclean re libft
+.SECONDARY:	mlx

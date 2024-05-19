@@ -6,7 +6,7 @@
 /*   By: bsen <bsen@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:28:54 by bsen              #+#    #+#             */
-/*   Updated: 2024/05/17 14:01:03 by bsen             ###   ########.fr       */
+/*   Updated: 2024/05/19 13:47:28 by bsen             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void map_controls(char *map, t_data *data)
 	P_finding(data, data->map);
 	path_finding(vmap,data->player_y,data->player_x, data);
 	ft_free(vmap);
-	if (data->collect != 0)
+	if (data->collectebles != 0)
 		exit_err("Error\nMap is wrong",data);
 }
 

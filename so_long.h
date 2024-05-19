@@ -6,7 +6,7 @@
 /*   By: bsen <bsen@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:44:42 by bsen              #+#    #+#             */
-/*   Updated: 2024/05/17 14:18:24 by bsen             ###   ########.fr       */
+/*   Updated: 2024/05/19 13:47:06 by bsen             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,26 @@
 #include <stdlib.h>
 
 
-typedef struct s_mlx
-{
-	void *player;
-	void *exit;
-	void *collect;
-	void *wall;
-	void *background;
-	void *mlx;
-	void *mlx_win;
-} t_mlx;
 typedef struct s_data
 {
 	char **map;
 	char *read_map;
 	int map_y;
 	int map_x;
-	int collect;
+	int collectebles;
 	int player_x;
 	int player_y;
 	int exit_x;
 	int exit_y;
-	t_mlx *mlx_data;
+	int mc;
+	int cc;
+	void *mlx;
+	void *player;
+	void *exit;
+	void *collect;
+	void *wall;
+	void *background;
+	void *mlx_win;
 
 } t_data;
 
@@ -56,8 +54,15 @@ void collectebles(char **map, t_data *data);
 void path_finding(char **map, int x, int y, t_data *data);
 void P_finding(t_data *data, char **map);
 void ft_free(char **str);
-void	*init_mlx(t_data *data);
+void init_mlx(t_data *data);
 void mlx_exit(t_data *data);
+int keyboard(int key, t_data *data);
+int	put_xml(t_data *data);
+void render(t_data *data);
+int	close_window(t_data *data);
+
+
+
 
 
 

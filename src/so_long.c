@@ -6,7 +6,7 @@
 /*   By: bsen <bsen@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 12:47:53 by bsen              #+#    #+#             */
-/*   Updated: 2024/05/17 14:05:26 by bsen             ###   ########.fr       */
+/*   Updated: 2024/05/19 13:50:43 by bsen             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../so_long.h"
 #include <fcntl.h>
 #include <unistd.h>
-#include "minilibx/mlx.h"
+#include "../minilibx/mlx.h"
 
 static void	start_game(char *map_name, t_data *data)
 {
@@ -27,14 +27,20 @@ static void	start_game(char *map_name, t_data *data)
 	data->map = read_map_length(data, map_name);
 	collectebles(data->map, data);
 	map_controls(data->read_map,data);
-	data->mlx = mlx_init();
-	if (data->mlx == NULL)
-		exit_err("Error\nMlx Error", data);
-	data->mlx_win = mlx_new_window(data->mlx, data->map_x * 64, data->map_y * 64, "so_long");
-	if (data->mlx_win == NULL)
-		exit_err("Error\nMlx Error", data);
+	init_mlx(data);
+	render(data);
+	mlx_hook(data->mlx_win, 2, 0, keyboard, data);
+	mlx_hook(data->mlx_win, 17, 0, close_window, data);
+	mlx_loop_hook(data->mlx, put_xml, data);
+	mlx_loop(data->mlx);
 
 
+}
+int	close_window(t_data *data)
+{
+	mlx_clear_window(data->mlx, data->mlx_win);
+	mlx_exit(data);
+	return (0);
 }
 int	main(int ac, char **av)
 {

@@ -6,7 +6,7 @@
 /*   By: bsen <bsen@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:52:11 by bsen              #+#    #+#             */
-/*   Updated: 2024/05/17 13:37:54 by bsen             ###   ########.fr       */
+/*   Updated: 2024/05/19 13:47:16 by bsen             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,8 @@ void collectebles(char **map, t_data *data)
 	}
 	if (count == 0)
 		exit_err("Error\nThere is no collectebles", data);
-	data->collect = count + 1;
+	data->collectebles = count + 1;
+	data->cc = count;
 }
 
 
