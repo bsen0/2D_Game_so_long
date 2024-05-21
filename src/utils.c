@@ -6,7 +6,7 @@
 /*   By: bsen <bsen@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:06:28 by bsen              #+#    #+#             */
-/*   Updated: 2024/05/19 14:35:10 by bsen             ###   ########.fr       */
+/*   Updated: 2024/05/21 20:34:06 by bsen             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,19 @@ void render(t_data *data)
 			if (data->map[y][x] == '1')
 				mlx_put_image_to_window(data->mlx, data->mlx_win,
 						data->wall, x * 64, y * 64);
-			else if (data->map[y][x] == '0')
+			else if (data->map[y][x] == '0' || data->map[y][x] == 'P')
 				mlx_put_image_to_window(data->mlx, data->mlx_win,
 						data->background, x * 64, y * 64);
 			else if (data->map[y][x] == 'C')
 				mlx_put_image_to_window(data->mlx, data->mlx_win,
 						data->collect, x * 64, y * 64);
 			else if (data->map[y][x] == 'E')
+			{
+				mlx_put_image_to_window(data->mlx, data->mlx_win,
+						data->background, x * 64, y * 64);
 				mlx_put_image_to_window(data->mlx, data->mlx_win,
 						data->exit, x * 64, y * 64);
+			}
 			else if (data->map[y][x] == 'P')
 				mlx_put_image_to_window(data->mlx, data->mlx_win,
 						data->player, x * 64, y * 64);
