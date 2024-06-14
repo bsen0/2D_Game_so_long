@@ -6,14 +6,14 @@
 #    By: bsen <bsen@student.42kocaeli.com.tr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/14 15:23:41 by bsen              #+#    #+#              #
-#    Updated: 2024/05/19 13:35:26 by bsen             ###   ########.fr        #
+#    Updated: 2024/05/29 16:59:23 by bsen             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	so_long
 
 CC				=	cc
-CFLAGS			=	-g -Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror
 RM				=	rm -rf
 
 SRC =	src/map_control.c \
@@ -23,18 +23,20 @@ SRC =	src/map_control.c \
 		src/map_control3.c
 
 LIBFT			=	libft/libft.a
+LIBFT_PATH		=	libft
 
 MINILIBX_PATH		=	minilibx
+MLX				=	$(MINILIBX_PATH)/libmlx.a
 OBJ				=	$(SRC:.c=.o)
 all:	$(NAME)
 
-$(NAME): mlx $(OBJ) $(LIBFT)
+$(NAME): $(MLX) $(OBJ) $(LIBFT)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) -framework OpenGL -framework AppKit -L$(MINILIBX_PATH) -lmlx
 
 $(LIBFT):
 	make -C $(LIBFT_PATH) all
 
-mlx:
+$(MLX):
 	make -C $(MINILIBX_PATH) all
 
 clean:
@@ -51,4 +53,3 @@ fclean: clean
 re:					fclean all
 
 .PHONY:	all clean fclean re libft
-.SECONDARY:	mlx

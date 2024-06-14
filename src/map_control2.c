@@ -6,11 +6,10 @@
 /*   By: bsen <bsen@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:52:11 by bsen              #+#    #+#             */
-/*   Updated: 2024/05/19 13:47:16 by bsen             ###   ########.fr       */
+/*   Updated: 2024/05/30 13:50:46 by bsen             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
 #include "../so_long.h"
 
 int	nl_control(char *map)
@@ -20,7 +19,7 @@ int	nl_control(char *map)
 	i = 0;
 	while (map[i])
 	{
-		if (map[i] == '\n' && map[i + 1] == '\n' && map[i + 2] != '\0')
+		if (map[i] == '\n' && map[i + 1] == '\n')
 			return (1);
 		i++;
 	}
@@ -28,6 +27,7 @@ int	nl_control(char *map)
 		return (1);
 	return (0);
 }
+
 int	map_wall_control(char **map, t_data *data)
 {
 	int	i;
@@ -39,7 +39,7 @@ int	map_wall_control(char **map, t_data *data)
 		if (map[0][j] != '1')
 			return (1);
 	while (map[++i])
-		if (map[i][0] != '1' && map[i][j] != '1')
+		if (map[i][0] != '1' || map[i][j - 1] != '1')
 			return (1);
 	j = -1;
 	while (map[i - 1][++j])
@@ -47,12 +47,9 @@ int	map_wall_control(char **map, t_data *data)
 			return (1);
 	data->map_x = j;
 	data->map_y = i;
-	i = 0;
-	while (map[i++][j - 1] && i < data->map_y)
-		if (map[i][j - 1] != '1')
-			return (1);
 	return (0);
 }
+
 int	length_control(int x, char **map)
 {
 	int	i;
@@ -84,7 +81,7 @@ int	collect_control(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] != 'C' && map[i][j] != '0'&& map[i][j] != '1'
+			if (map[i][j] != 'C' && map[i][j] != '0' && map[i][j] != '1'
 				&& map[i][j] != 'E' && map[i][j] != 'P')
 				return (1);
 			j++;
@@ -94,7 +91,7 @@ int	collect_control(char **map)
 	return (0);
 }
 
-void collectebles(char **map, t_data *data)
+void	collectebles(char **map, t_data *data)
 {
 	int	i;
 	int	j;
@@ -118,5 +115,3 @@ void collectebles(char **map, t_data *data)
 	data->collectebles = count + 1;
 	data->cc = count;
 }
-
-

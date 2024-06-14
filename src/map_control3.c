@@ -6,13 +6,13 @@
 /*   By: bsen <bsen@student.42kocaeli.com.tr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 13:53:11 by bsen              #+#    #+#             */
-/*   Updated: 2024/05/19 14:31:07 by bsen             ###   ########.fr       */
+/*   Updated: 2024/05/30 13:56:13 by bsen             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
-#include "../so_long.h"
 #include "../minilibx/mlx.h"
+#include "../so_long.h"
 
 int	chr_count(char *map, char c)
 {
@@ -29,7 +29,8 @@ int	chr_count(char *map, char c)
 	}
 	return (count);
 }
-void	P_finding(t_data *data, char **map)
+
+void	p_finding(t_data *data, char **map)
 {
 	int	i;
 	int	j;
@@ -51,6 +52,7 @@ void	P_finding(t_data *data, char **map)
 		i++;
 	}
 }
+
 void	path_finding(char **map, int x, int y, t_data *data)
 {
 	if (data->map[x][y] == 'E' || data->map[x][y] == 'C')
@@ -77,10 +79,10 @@ void	path_finding(char **map, int x, int y, t_data *data)
 	}
 }
 
-int keyboard(int key, t_data *data)
+int	keyboard(int key, t_data *data)
 {
 	if (key == 53)
-		exit(0);
+		exit_err("Exit\n", data);
 	else if (key == 13 && data->map[data->player_y - 1][data->player_x] != '1')
 		data->player_y--;
 	else if (key == 1 && data->map[data->player_y + 1][data->player_x] != '1')
@@ -100,12 +102,10 @@ int keyboard(int key, t_data *data)
 		--data->cc;
 	}
 	if (data->map[data->player_y][data->player_x] == 'E' && data->cc == 0)
-	{
-		ft_putstr_fd("You win\n", 1);
-		exit(0);
-	}
+		exit_err("You win!\n", data);
 	return (0);
-}	
+}
+
 int	put_xml(t_data *data)
 {
 	render(data);
